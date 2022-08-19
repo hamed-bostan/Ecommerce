@@ -4,24 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+//use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
+   // use Traits\ValidationController;
+
 
     public function login(Request $request)
     {
-        $validate = Validator::make($request->all(), [
+        //$checking = $this->hamed($request);
+
+
+        $validate = Validator::make($request->all(),[
             'email'    => 'required',
             'password' => 'required',
         ]);
+
 
         if ($validate->fails()) {
             return response()->json([
                 'message' => __('fail.invalid_message')
             ]);
         }
+
+
 
         $check = request(['email', 'password']);
 
@@ -47,14 +56,14 @@ class LoginController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('Token Name')->accessToken;
-        var_dump($user->createToken());
+        //$token = $user->createToken('Token Name')->accessToken;
+       // var_dump($user->createToken());
 //        var_dump($token);;
 
-        return response()->json([
-            'message' => 'you are logged in',
-            'token_type'=>'Bearer',
-            'token'=>$token,
-        ],200);
+//        return response()->json([
+//            'message' => 'you are logged in',
+//            'token_type'=>'Bearer',
+//            'token'=>$token,
+//        ],200);
     }
 }

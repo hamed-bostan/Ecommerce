@@ -31,8 +31,6 @@ class ProcessEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::raw('Verify Email', function ($message){
-           $message->to('hamed@gmail.com');
-        });
+        //
     }
 }
