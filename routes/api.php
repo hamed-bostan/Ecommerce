@@ -23,3 +23,15 @@ Route::post('/register',[\App\Http\Controllers\RegisterController::class,'regist
 Route::get('/activation/{token}',[\App\Http\Controllers\RegisterController::class,'activation']);
 
 Route::post('/login',[\App\Http\Controllers\LoginController::class,'login']);
+
+
+
+Route::get('/index',[\App\Http\Controllers\OrdersController::class,'index']);
+
+Route::post('/store',[\App\Http\Controllers\OrdersController::class,'store']);
+
+Route::post('/order/{order}',[\App\Http\Controllers\OrdersController::class,'update']);
+
+
+
+
