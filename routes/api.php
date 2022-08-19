@@ -33,5 +33,7 @@ Route::post('/store',[\App\Http\Controllers\OrdersController::class,'store']);
 Route::post('/order/{order}',[\App\Http\Controllers\OrdersController::class,'update']);
 
 
-
+Route::get('/jobs',function (){
+    \App\Jobs\ProcessEmail::dispatch();
+});
 
