@@ -22,4 +22,4 @@ Route::post('/register',[\App\Http\Controllers\RegisterController::class,'regist
 
 Route::get('/activation/{token}',[\App\Http\Controllers\RegisterController::class,'activation']);
 
-
+Route::post('/login',[\App\Http\Controllers\LoginController::class,'login']);
