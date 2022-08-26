@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Jobs\ProcessEmail;
+use App\Http\Controllers\Controller;
 use App\Mail\ActivationNotification;
 use App\Mail\RegisterNotification;
 use App\Models\User;
@@ -10,9 +10,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use function __;
+use function bcrypt;
+use function response;
 
 class RegisterController extends Controller
 {
@@ -72,5 +74,4 @@ class RegisterController extends Controller
             ]);
         }
     }
-
 }
