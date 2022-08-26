@@ -56,7 +56,6 @@ class RegisterController extends Controller
 
         if (!$user) {
             return response()->json([
-                //'message' => 'Activation token was invalid'
                 'message' => __('fail.invalid_token')
             ]);
         } else {

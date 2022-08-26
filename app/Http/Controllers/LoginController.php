@@ -10,26 +10,18 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-   // use Traits\ValidationController;
-
-
     public function login(Request $request)
     {
-        //$checking = $this->hamed($request);
-
-
         $validate = Validator::make($request->all(),[
             'email'    => 'required',
             'password' => 'required',
         ]);
-
 
         if ($validate->fails()) {
             return response()->json([
                 'message' => __('fail.invalid_message')
             ]);
         }
-
 
 
         $check = request(['email', 'password']);
