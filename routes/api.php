@@ -24,15 +24,8 @@ Route::get('/activation/{token}',[\App\Http\Controllers\Api\V1\RegisterControlle
 
 Route::post('/login',[\App\Http\Controllers\Api\V1\LoginController::class, 'login']);
 
-//Route::group(['prefix'=>'/orders'],function (){
-//    Route::get('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'index']);
-//    Route::post('',[\App\Http\Controllers\Api\V1\OrdersController::class, 'store']);
-//    Route::put('/{order}',[\App\Http\Controllers\Api\V1\OrdersController::class, 'update']);
-//});
-
-
 Route::group(['prefix'=>'/orders'],function (){
-    Route::get('/',[\App\Policies\OrderPolicy::class,'view']);
-    Route::post('',[\App\Policies\OrderPolicy::class, 'create']);
-    Route::put('/{order}',[\App\Policies\OrderPolicy::class, 'update']);
+    Route::get('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'index']);
+    Route::post('',[\App\Http\Controllers\Api\V1\OrdersController::class, 'store']);
+    Route::put('/{order}',[\App\Http\Controllers\Api\V1\OrdersController::class, 'update']);
 });

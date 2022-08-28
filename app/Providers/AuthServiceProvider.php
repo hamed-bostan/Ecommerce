@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Orders;
+use App\Models\Order;
 use App\Policies\OrderPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Orders::class=>OrderPolicy::class
+        Order::class=>OrderPolicy::class
     ];
 
     /**
@@ -28,10 +28,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-//        if (! $this->app->routesAreCached()) {
-//            Passport::routes();
-//        }
 
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
