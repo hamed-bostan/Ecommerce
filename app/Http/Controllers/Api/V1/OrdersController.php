@@ -10,13 +10,13 @@ use function response;
 
 class OrdersController extends Controller
 {
-    public function index()
+    public function view()
     {
 
         return Order::paginate(2);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $validate = Validator::make($request->all(),[
             'quantity'=>['required'],
@@ -50,7 +50,7 @@ class OrdersController extends Controller
     {
         $this->authorize('update',$order);
 
-        $order->update($request->all());
+//        $order->update($request->all());
 
         return response()->json([
             'message'=>'updating was successful',

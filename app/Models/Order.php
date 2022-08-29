@@ -12,6 +12,10 @@ class Order extends Model
       'product_name',
       'quantity',
       'price',
-      'user_id',
+      'user_id'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

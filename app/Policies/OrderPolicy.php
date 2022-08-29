@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class OrderPolicy
 {
@@ -53,7 +54,11 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-       // $order->user_id == $user->id;
+        return $user->id === $order->user_id
+            ? Response::allow()
+            : Response::deny('The video is not yours');
+
+//        return $order->user_id === $user->id ;
     }
 
     /**

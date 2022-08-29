@@ -46,7 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function order(){
-        return $this->belongsTo(Order::class);
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }
