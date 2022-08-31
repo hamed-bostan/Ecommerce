@@ -39,6 +39,6 @@ Route::middleware('auth:passport')->post('/update', function (){
 });
 
 Route::get('/notify', function (){
-    $user = \App\Models\User::last();
+    $user = \App\Models\User::first();
     $user->notify(new \App\Notifications\Order());
 });
