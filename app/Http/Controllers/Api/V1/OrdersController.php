@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\CheckEmailIsVerified;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +11,7 @@ use function response;
 
 class OrdersController extends Controller
 {
+
     public function view()
     {
 
@@ -18,6 +20,7 @@ class OrdersController extends Controller
 
     public function create(Request $request)
     {
+
         $validate = Validator::make($request->all(),[
             'quantity'=>['required'],
             'price'=>['required'],
@@ -50,7 +53,7 @@ class OrdersController extends Controller
     {
         $this->authorize('update',$order);
 
-//        $order->update($request->all());
+        $order->update($request->all());
 
         return response()->json([
             'message'=>'updating was successful',

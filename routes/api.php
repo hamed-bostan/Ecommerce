@@ -25,14 +25,14 @@ Route::get('/activation/{token}',[\App\Http\Controllers\Api\V1\RegisterControlle
 Route::post('/login',[\App\Http\Controllers\Api\V1\LoginController::class, 'login']);
 
 Route::group(['prefix'=>'/orders'],function (){
-    //Route::get('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'view']);
-    Route::post('',[\App\Http\Controllers\Api\V1\OrdersController::class, 'create']);
+    Route::get('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'view'])->middleware(\App\Http\Middleware\CheckEmailIsVerified::class);
+    Route::post('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'create'])->middleware(\App\Http\Middleware\CheckEmailIsVerified::class);
 //    Route::put('/{order}',[\App\Http\Controllers\Api\V1\OrdersController::class, 'update']);
 });
 
-Route::get('/view', function () {
-    return \App\Http\Resources\OrderResource::collection(\App\Models\Order::paginate(3));
-});
+//Route::get('/view', function () {
+//    return \App\Http\Resources\OrderResource::collection(\App\Models\Order::paginate(3));
+//});
 
 Route::middleware('auth:passport')->post('/update', function (){
    return 'ok';

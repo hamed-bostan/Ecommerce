@@ -14,10 +14,24 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        $validate = Validator::make($request->all(),[
-            'email'    => 'required',
-            'password' => 'required',
+        $validate = $request->validate([
+            'email'    => ['required','email'],
+            'password' => ['required'],
         ]);
+
+
+        // checking user credentials
+        if (Auth::attempt($request->only(['email','password']))){
+            return response()->json(Auth::user(),200);
+        }
+
+            // if user doesnt exist
+        if (!Auth::attempt($request->only(['email','password']))){
+            return response()->json([
+                'message'=>'User doesnt exist'
+            ]);
+        }
+
 
         if ($validate->fails()) {
             return response()->json([
@@ -26,29 +40,9 @@ class LoginController extends Controller
         }
 
 
-        $check = request(['email', 'password']);
-
-
-        // if user doesn't exist
-        if (!Auth::attempt($check)) {
-            return response()->json([
-                'message' => __('fail.verification_failed')
-            ], 401);
-        }
-
-
-        $user = Auth::user();
-
-
         //dd($user->createToken($token));
 
 
-        // if user's email is not verified
-        if (!$user->hasVerifiedEmail()) {
-            return response()->json([
-                'message' => __('fail.email_failed')
-            ], 401);
-        }
 
         //$token = $user->createToken('Token Name')->accessToken;
        // var_dump($user->createToken());
@@ -60,4 +54,15 @@ class LoginController extends Controller
 //            'token'=>$token,
 //        ],200);
     }
+
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return response()->json([
+            'message'=>'You logged out successfully'
+        ]);
+    }
+
 }
