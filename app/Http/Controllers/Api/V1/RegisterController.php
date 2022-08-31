@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Mail\ActivationNotification;
 use App\Mail\RegisterNotification;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -18,9 +20,10 @@ use function response;
 
 class RegisterController extends Controller
 {
+
     public function register(Request $request)
     {
-        $validate = Validator::make($request->all(), [
+            $validate = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name'  => 'required',
             'email'      => 'required|unique:users|max:255',
@@ -32,15 +35,7 @@ class RegisterController extends Controller
                 'message' => __('fail.invalid_message')
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
-            $user = new User([
-                'first_name'       => $request->first_name,
-                'last_name'        => $request->last_name,
-                'email'            => $request->email,
-                'password'         => bcrypt($request->password),
-                'activation_token' => Str::random(60),
-                'ip'               => $request->ip(),
-            ]);
-
+            $user = resolve(UserRepository::class)->create($request);
             $user->save();
 
             Mail::to($user->email)->send(new RegisterNotification($user));
@@ -73,5 +68,15 @@ class RegisterController extends Controller
                 'message' => __('success.activation_message')
             ]);
         }
+    }
+
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return response()->json([
+            'message'=>'You logged out successfully'
+        ]);
     }
 }

@@ -27,10 +27,18 @@ Route::post('/login',[\App\Http\Controllers\Api\V1\LoginController::class, 'logi
 Route::group(['prefix'=>'/orders'],function (){
     //Route::get('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'view']);
     Route::post('',[\App\Http\Controllers\Api\V1\OrdersController::class, 'create']);
-    Route::put('/{order}',[\App\Http\Controllers\Api\V1\OrdersController::class, 'update']);
+//    Route::put('/{order}',[\App\Http\Controllers\Api\V1\OrdersController::class, 'update']);
 });
 
 Route::get('/view', function () {
     return \App\Http\Resources\OrderResource::collection(\App\Models\Order::paginate(3));
 });
 
+Route::middleware('auth:passport')->post('/update', function (){
+   return 'ok';
+});
+
+Route::get('/notify', function (){
+    $user = \App\Models\User::last();
+    $user->notify(new \App\Notifications\Order());
+});
