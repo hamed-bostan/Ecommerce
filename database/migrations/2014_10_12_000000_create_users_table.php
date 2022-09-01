@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('activation_token');
+            $table->tinyInteger('is_admin');
             $table->string('ip')->nullable();
             $table->boolean('activation')->default(false);
             $table->timestamp('email_verified_at')->nullable();

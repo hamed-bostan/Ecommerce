@@ -19,6 +19,12 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+        if ($validate->fails()) {
+            return response()->json([
+                'message' => __('fail.invalid_message')
+            ]);
+        }
+
 
         // checking user credentials
         if (Auth::attempt($request->only(['email','password']))){
@@ -32,12 +38,12 @@ class LoginController extends Controller
             ]);
         }
 
-
-        if ($validate->fails()) {
+        if (auth()->user()->is_admin==1){
             return response()->json([
-                'message' => __('fail.invalid_message')
+                'message'=>'is admin',
             ]);
         }
+
 
 
         //dd($user->createToken($token));
