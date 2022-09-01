@@ -10,6 +10,7 @@ use Illuminate\Auth\Access\Response;
 class OrderPolicy
 {
     use HandlesAuthorization;
+    const UPDATE = 'update';
 
     /**
      * Determine whether the user can view any models.
@@ -50,15 +51,11 @@ class OrderPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Order  $order
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function update(User $user, Order $order)
+    public function update(User $user, Order $order): bool
     {
-        return $user->id === $order->user_id
-            ? Response::allow()
-            : Response::deny('The video is not yours');
-
-//        return $order->user_id === $user->id ;
+        return $user->id === $order->user_id;
     }
 
     /**

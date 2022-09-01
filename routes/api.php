@@ -2,17 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use App\Http\Controllers\Api\V1\OrdersController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -23,10 +13,12 @@ Route::post('/register',[\App\Http\Controllers\Api\V1\RegisterController::class,
 Route::get('/activation/{token}',[\App\Http\Controllers\Api\V1\RegisterController::class, 'activation']);
 
 Route::post('/login',[\App\Http\Controllers\Api\V1\LoginController::class, 'login']);
-
-Route::group(['prefix'=>'/orders'],function (){
-    Route::get('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'view'])->middleware(\App\Http\Middleware\CheckEmailIsVerified::class);
-    Route::post('/',[\App\Http\Controllers\Api\V1\OrdersController::class, 'create'])->middleware(\App\Http\Middleware\CheckEmailIsVerified::class);
+// php artisan route:list
+// authentication VS authorization
+Route::middleware('auth:api', 'verified')->group(function (){
+//    Route::apiResource('orders', OrdersController::class);
+    Route::get('orders',[OrdersController::class, 'view']);
+    Route::post('/',[OrdersController::class, 'create']);
 //    Route::put('/{order}',[\App\Http\Controllers\Api\V1\OrdersController::class, 'update']);
 });
 

@@ -17,8 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-         'App\Models\Order' => 'App\Policies\OrderPolicy',
-        Order::class=>OrderPolicy::class
+         Order::class => OrderPolicy::class,
     ];
 
     /**
@@ -29,8 +28,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
 
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
