@@ -26,6 +26,7 @@ class User extends Authenticatable
         'activation',
         'ip',
         'password',
+        'is_admin',
     ];
 
     /**

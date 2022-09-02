@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\CheckEmailIsVerified;
 use App\Models\Order;
+use App\Models\Product;
 use App\Policies\OrderPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -61,4 +62,7 @@ class OrdersController extends Controller
             'message' => 'updating was successful',
         ]);
     }
+
+
+
 }

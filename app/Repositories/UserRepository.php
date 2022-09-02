@@ -22,6 +22,7 @@ class UserRepository
             'password'         => bcrypt($request->password),
             'activation_token' => Str::random(60),
             'ip'               => $request->ip(),
+            'is_admin'         => $request->is_admin,
         ]);
 
         return $user;

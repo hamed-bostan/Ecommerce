@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\Product;
 use App\Policies\ProductPolicy;
 use Illuminate\Http\Request;
@@ -29,23 +28,22 @@ class ProductController extends Controller
             'user_id' => ['required'],
         ]);
 
-        if (! $validate) {
+        if (!$validate) {
             return response()->json([
                 'message' => 'Invalid input.',
             ]);
         }
 
-        $order = Product::create([
+        $product = Product::create([
             'product_name' => $request->product_name,
             'price' => $request->price,
             'is_available_in_store' => $request->is_available_in_store,
             'quantity' => $request->quantity,
             'color' => $request->color,
             'user_id' => $request->user_id,
-
         ]);
 
-        $order->save();
+        $product->save();
 
         return response()->json([
             'message' => 'Creating was successful'
@@ -53,11 +51,11 @@ class ProductController extends Controller
     }
 
 
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Product $product)
     {
-        $this->authorize(ProductPolicy::UPDATE, $order);
+        $this->authorize(ProductPolicy::UPDATE, $product);
 
-        $order->update($request->all());
+        $product->update($request->all());
 
         return response()->json([
             'message' => 'updating was successful',

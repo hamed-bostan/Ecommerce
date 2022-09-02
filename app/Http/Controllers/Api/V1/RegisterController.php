@@ -28,6 +28,7 @@ class RegisterController extends Controller
             'last_name'  => ['required'],
             'email'      => ['required','unique:users','max:255'],
             'password'   => ['required','confirmed','min:5'],
+            'is_admin'   => ['required'],
         ]);
 
         if (! $validate) {
