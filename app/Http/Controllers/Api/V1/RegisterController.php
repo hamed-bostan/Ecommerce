@@ -23,14 +23,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-            $validate = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|unique:users|max:255',
-            'password'   => 'required|confirmed|min:5',
+        $validate = $request->validate([
+            'first_name' => ['required'],
+            'last_name'  => ['required'],
+            'email'      => ['required','unique:users','max:255'],
+            'password'   => ['required','confirmed','min:5'],
         ]);
 
-        if ($validate->fails()) {
+        if (! $validate) {
             return response()->json([
                 'message' => __('fail.invalid_message')
             ], Response::HTTP_UNPROCESSABLE_ENTITY);

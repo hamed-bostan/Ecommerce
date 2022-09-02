@@ -19,7 +19,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if ($validate->fails()) {
+        if (! $validate) {
             return response()->json([
                 'message' => __('fail.invalid_message')
             ]);

@@ -3,30 +3,30 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Middleware\CheckEmailIsVerified;
 use App\Models\Order;
-use App\Policies\OrderPolicy;
+use App\Models\Product;
+use App\Policies\ProductPolicy;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use function response;
 
-class OrdersController extends Controller
+class ProductController extends Controller
 {
-
     //index
     public function index()
     {
-        return Order::paginate(10);
+        return Product::paginate(10);
     }
 
     //store
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'total_price' => ['required'],
-            'total_of_orders' => ['required'],
+            'product_name' => ['required'],
+            'color' => ['required'],
+            'price' => ['required'],
+            'is_available_in_store' => ['required'],
+            'quantity' => ['required'],
             'user_id' => ['required'],
-            'product_id' => ['required'],
         ]);
 
         if (! $validate) {
@@ -35,11 +35,13 @@ class OrdersController extends Controller
             ]);
         }
 
-        $order = Order::create([
-            'total_price' => $request->total_price,
-            'total_of_orders' => $request->total_of_orders,
+        $order = Product::create([
+            'product_name' => $request->product_name,
+            'price' => $request->price,
+            'is_available_in_store' => $request->is_available_in_store,
+            'quantity' => $request->quantity,
+            'color' => $request->color,
             'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
 
         ]);
 
@@ -53,7 +55,7 @@ class OrdersController extends Controller
 
     public function update(Request $request, Order $order)
     {
-        $this->authorize(OrderPolicy::UPDATE, $order);
+        $this->authorize(ProductPolicy::UPDATE, $order);
 
         $order->update($request->all());
 

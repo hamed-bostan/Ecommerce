@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('color');
             $table->string('is_available_in_store')->default(0);        // 0 means there isn't one in our store
             $table->integer('quantity');
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
