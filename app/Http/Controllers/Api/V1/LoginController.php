@@ -25,41 +25,38 @@ class LoginController extends Controller
             ]);
         }
 
+        // checking user credentials original
+//        if (Auth::attempt($request->only(['email','password']))){
+//            return response()->json(Auth::user(),200);
+//        }
 
-        // checking user credentials
-        if (Auth::attempt($request->only(['email','password']))){
-            return response()->json(Auth::user(),200);
+
+            // checking user credentials and if it's admin
+        if (Auth::attempt($request->only(['email','password'])) && auth()->user()->is_admin==1 ){
+            return response()->json([
+                'message'=>'it is admin',
+                'user information'=>Auth::user(),
+            ]);
         }
+
+
+            // checking user credentials and if it's not admin
+        if (Auth::attempt($request->only(['email','password'])) && auth()->user()->is_admin==0 ){
+            return response()->json([
+                'message'=>'it is not admin'
+            ]);
+        }
+
 
             // if user doesnt exist
         if (!Auth::attempt($request->only(['email','password']))){
             return response()->json([
-                'message'=>'User doesnt exist'
+                'message'=>'Login information is not correct',
             ]);
         }
 
-        if (auth()->user()->is_admin==1){
-            return response()->json([
-                'message'=>'is admin',
-            ]);
-        }
-
-
-
-        //dd($user->createToken($token));
-
-
-
-        //$token = $user->createToken('Token Name')->accessToken;
-       // var_dump($user->createToken());
-//        var_dump($token);;
-
-//        return response()->json([
-//            'message' => 'you are logged in',
-//            'token_type'=>'Bearer',
-//            'token'=>$token,
-//        ],200);
     }
+
 
 
     public function logout()

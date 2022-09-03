@@ -27,6 +27,7 @@ class User extends Authenticatable
         'ip',
         'password',
         'is_admin',
+        'api_token',
     ];
 
     /**
