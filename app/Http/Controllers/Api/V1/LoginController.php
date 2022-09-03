@@ -19,31 +19,10 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+            // if Validation fails
         if (! $validate) {
             return response()->json([
                 'message' => __('fail.invalid_message')
-            ]);
-        }
-
-        // checking user credentials original
-//        if (Auth::attempt($request->only(['email','password']))){
-//            return response()->json(Auth::user(),200);
-//        }
-
-
-            // checking user credentials and if it's admin
-        if (Auth::attempt($request->only(['email','password'])) && auth()->user()->is_admin==1 ){
-            return response()->json([
-                'message'=>'it is admin',
-                'user information'=>Auth::user(),
-            ]);
-        }
-
-
-            // checking user credentials and if it's not admin
-        if (Auth::attempt($request->only(['email','password'])) && auth()->user()->is_admin==0 ){
-            return response()->json([
-                'message'=>'it is not admin'
             ]);
         }
 
@@ -52,6 +31,26 @@ class LoginController extends Controller
         if (!Auth::attempt($request->only(['email','password']))){
             return response()->json([
                 'message'=>'Login information is not correct',
+            ]);
+        }
+
+
+        $accessToken = Auth::user()->createToken('myToken')->accessToken;
+
+            // checking user credentials
+        if (Auth::attempt($request->only(['email','password']))){
+            return response([
+               'user'=>Auth::user(),
+               'accessToken'=>$accessToken
+            ]);
+
+        }
+
+
+            // checking user credentials and if it's not admin
+        if (Auth::attempt($request->only(['email','password'])) && auth()->user()->is_admin==0 ){
+            return response()->json([
+                'message'=>'it is not admin'
             ]);
         }
 
