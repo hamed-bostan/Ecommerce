@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('color_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('guarantee_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('color_id')->constrained('product_colors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('guarantee_id')->constrained('guarantees')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('number')->default(1);      // when you want to buy a product 3 times or more  - Exm: buying A30, 3 times
             $table->softDeletes();
             $table->timestamps();

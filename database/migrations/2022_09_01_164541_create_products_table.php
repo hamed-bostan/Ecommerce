@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('product_name');
             $table->string('price');
             $table->string('color');
-            $table->string('is_available_in_store')->default(0);        // 0 means there isn't one in our store
+            $table->tinyInteger('is_available_in_store')->default(0);        // 0 means there isn't any in our store
             $table->integer('quantity');
+            $table->tinyInteger('sold_number')->default(0);
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });

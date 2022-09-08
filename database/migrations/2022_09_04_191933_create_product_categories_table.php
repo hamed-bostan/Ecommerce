@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('online_payments', function (Blueprint $table) {
+        Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount',20,3);
-            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('gateway')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->text('bank_first_response')->nullable();
-            $table->text('bank_second_response')->nullable();
+            $table->string('name');
+            $table->text('description');
+            $table->string('slug')->unique()->nullable();
+            $table->text('image')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('show_in_menu')->default(0);
+            $table->text('tags');
+            $table->foreignId('parent_id')->nullable()->constrained('product_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('online_payments');
+        Schema::dropIfExists('product_categories');
     }
 };
