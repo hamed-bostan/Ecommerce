@@ -3,46 +3,32 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Policies\ProductPolicy;
+use App\Repositories\OrderRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use function response;
 
 class ProductController extends Controller
 {
-    //index
+
+private ProductRepository $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function index()
     {
         return Product::paginate(10);
     }
 
-    //store
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $validate = $request->validate([
-            'product_name' => ['required'],
-            'color' => ['required'],
-            'price' => ['required'],
-            'is_available_in_store' => ['required'],
-            'quantity' => ['required'],
-            'user_id' => ['required'],
-        ]);
-
-        if (!$validate) {
-            return response()->json([
-                'message' => 'Invalid input.',
-            ]);
-        }
-
-        $product = Product::create([
-            'product_name' => $request->product_name,
-            'price' => $request->price,
-            'is_available_in_store' => $request->is_available_in_store,
-            'quantity' => $request->quantity,
-            'color' => $request->color,
-            'user_id' => $request->user_id,
-        ]);
-
+        $product = $this->productRepository->create($request->validated());
         $product->save();
 
         return response()->json([

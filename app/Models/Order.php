@@ -12,7 +12,7 @@ class Order extends Model
       'total_price',
       'total_of_orders',
       'user_id',
-      'product_id'
+      'product_id',
     ];
 
     public function user(){

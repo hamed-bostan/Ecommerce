@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class UserRepository
+class OrderRepository
 {
     /**
      *
@@ -15,7 +15,7 @@ class UserRepository
      */
     public function create(array $data): Model|Builder
     {
-        return User::query()->create($data);
+        return Order::query()->create($data);
     }
 
 

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\Auth\RegisterRequest;
+use App\Http\Resources\User\RegisterResource;
 use App\Mail\ActivationNotification;
 use App\Mail\RegisterNotification;
 use App\Models\User;
+use App\Notifications\User\EmailVerificationNotification;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,37 +23,34 @@ use function response;
 
 class RegisterController extends Controller
 {
+    private UserRepository $userRepository;
 
-    public function register(Request $request)
+    public function __construct(UserRepository $userRepository)
     {
-        $validate = $request->validate([
-            'first_name' => ['required'],
-            'last_name'  => ['required'],
-            'email'      => ['required','unique:users','max:255'],
-            'password'   => ['required','confirmed','min:5'],
-            'is_admin'   => ['required'],
-        ]);
-
-        if (! $validate) {
-            return response()->json([
-                'message' => __('fail.invalid_message')
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        } else {
-            $user = resolve(UserRepository::class)->create($request);
-            $user->save();
-
-            Mail::to($user->email)->send(new RegisterNotification($user));
-
-            return response()->json([
-                'message' => __('success.success_message'),
-            ]);
-        }
+        $this->userRepository = $userRepository;
     }
 
 
+    /**
+     * @param RegisterRequest $request Request.
+     * @return RegisterResource
+     */
+    public function register(RegisterRequest $request): RegisterResource
+    {
+        /** @var User $user */
+        $user = $this->userRepository->create($request->validated());
+
+        // TODO Notification
+//        Mail::to($user->email)->send(new RegisterNotification($user));
+        $user->notify(EmailVerificationNotification::class);
+
+        return new RegisterResource($user);
+    }
+
     public function activation($token)
     {
-        $user = User::where('activation_token', $token)->first();
+        /** @var User $user */
+        $user = User::query()->where('activation_token', $token)->first();
 
         if (!$user) {
             return response()->json([
@@ -64,6 +64,8 @@ class RegisterController extends Controller
             $user->save();
 
             Mail::to($user->email)->send(new ActivationNotification($user));
+
+            $user->notify(EmailVerificationNotification::class);
 
             return response()->json([
                 'message' => __('success.activation_message')
