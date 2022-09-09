@@ -38,11 +38,19 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request): RegisterResource
     {
         /** @var User $user */
-        $user = $this->userRepository->create($request->validated());
+//        $user = $this->userRepository->create($request->validated());
+
+       $user = User::create($request->validated() + [
+//            'user_id' => auth()->id(),
+             'password' => bcrypt($request->password),
+             'activation_token' => Str::random(60),
+               'ip' => $request->ip(),
+            ]);
+
 
         // TODO Notification
 //        Mail::to($user->email)->send(new RegisterNotification($user));
-        $user->notify(EmailVerificationNotification::class);
+//        $user->notify(EmailVerificationNotification::class);
 
         return new RegisterResource($user);
     }

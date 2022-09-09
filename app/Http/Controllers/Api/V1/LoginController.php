@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Auth\LoginRequest;
+use App\Http\Resources\LoginResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -17,6 +18,8 @@ class LoginController extends Controller
     {
 
             // if user doesnt exist
+        $user = Auth::attempt($request->only(['email','password']));
+
         if (!Auth::attempt($request->only(['email','password']))){
             return response()->json([
                 'message'=>'Login information is not correct',
@@ -28,18 +31,13 @@ class LoginController extends Controller
             // checking user credentials
         if (Auth::attempt($request->only(['email','password']))){
             return response([
-               'user'=>Auth::user(),
+//               'user'=>Auth::user(),
+            new LoginResource(),
                'accessToken'=>$accessToken
             ]);
 
         }
 
-            // checking user credentials and if it's not admin
-        if (Auth::attempt($request->only(['email','password'])) && auth()->user()->is_admin==0 ){
-            return response()->json([
-                'message'=>'it is not admin'
-            ]);
-        }
 
     }
 

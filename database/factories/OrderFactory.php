@@ -18,12 +18,13 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'=>random_int(1,200),
-            'product_name'=>fake()->name,
-            'price'=>Str::random(20),
-            'color'=>faker()->word,
-            'quantity'=>random_int(1,200),
-            'sold_count' => random_int(1,50),
+//            'product_name'=>fake()->name,
+//            'price'=>Str::random(20),
+//            'color'=> $faker ->word,
+//            'stock'=>faker()=>random_int(1,50),
+//            'quantity'=>random_int(1,200),
+//            'sales_number' => random_int(1,50),
+//            'user_id'=>random_int(1,200),
         ];
     }
 }

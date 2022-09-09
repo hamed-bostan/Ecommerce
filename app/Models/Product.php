@@ -13,8 +13,11 @@ class Product extends Model
         'product_name',
         'price',
         'color',
-        'is_available_in_store',
+        'stock',
         'quantity',
+        'discount',
+        'star',
+        'sales_number',
         'user_id'
         ];
 
