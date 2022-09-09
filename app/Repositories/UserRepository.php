@@ -17,6 +17,4 @@ class UserRepository
     {
         return User::query()->create($data);
     }
-
-
 }

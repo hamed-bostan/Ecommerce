@@ -24,8 +24,8 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'total_price' => ['required'],
-            'total_of_orders' => ['required'],
+            'total_price' => ['required','integer'],
+            'total_of_orders' => ['required','integer'],
             'user_id' => ['required'],
             'product_id' => ['required'],
         ];

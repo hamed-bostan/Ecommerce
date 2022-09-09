@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Policies\ProductPolicy;
 use App\Repositories\OrderRepository;
@@ -23,7 +24,9 @@ private ProductRepository $productRepository;
 
     public function index()
     {
-        return Product::paginate(10);
+//        return Product::paginate(10);
+        $product = Product::find(3);
+        return new ProductResource($product);
     }
 
     public function store(ProductRequest $request)

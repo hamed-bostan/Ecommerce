@@ -24,17 +24,12 @@ Route::middleware('auth:api', 'verified')->group(function (){
     Route::put('/orders/{order}',[OrdersController::class, 'update']);
 });
 
-//Route::get('/view', function () {
-//    return \App\Http\Resources\OrderResource::collection(\App\Models\Order::paginate(3));
-//});
 
-
-//Route::middleware('auth:api', 'verified')->group(function (){
+Route::middleware('auth:api', 'verified')->group(function (){
 Route::get('/products',[ProductController::class, 'index']);
 Route::post('/products',[ProductController::class, 'store']);
 Route::put('/products/{product}',[ProductController::class, 'update']);
-//});
-
+});
 
 Route::get('/notify', function (){
     $user = User::first();

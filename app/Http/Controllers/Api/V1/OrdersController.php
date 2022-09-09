@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\CheckEmailIsVerified;
 use App\Http\Requests\OrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -30,7 +31,9 @@ class OrdersController extends Controller
 
     public function index()
     {
-        return Order::paginate(10);
+//        return Order::paginate(10);
+        $order = Order::find(3);
+        return new OrderResource($order);
     }
 
     public function store(OrderRequest $request)
