@@ -19,10 +19,11 @@ class OrderFactory extends Factory
     {
         return [
             'user_id'=>random_int(1,200),
-            'quantity'=>random_int(1,200),
-            'price'=>Str::random(20),
             'product_name'=>fake()->name,
-
+            'price'=>Str::random(20),
+            'color'=>faker()->word,
+            'quantity'=>random_int(1,200),
+            'sold_count' => random_int(1,50),
         ];
     }
 }
