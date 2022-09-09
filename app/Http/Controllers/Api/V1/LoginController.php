@@ -5,11 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Auth\LoginRequest;
 use App\Http\Resources\LoginResource;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use function __;
-use function request;
 use function response;
 
 class LoginController extends Controller
@@ -20,24 +16,30 @@ class LoginController extends Controller
             // if user doesnt exist
         $user = Auth::attempt($request->only(['email','password']));
 
-        if (!Auth::attempt($request->only(['email','password']))){
+        if (! $user ){
             return response()->json([
                 'message'=>'Login information is not correct',
             ]);
         }
 
-        $accessToken = Auth::user()->createToken('myToken')->accessToken;
+        $user = auth()->user();
+        $accessToken = $user->createToken('myToken')->accessToken;
 
             // checking user credentials
-        if (Auth::attempt($request->only(['email','password']))){
+        if ($user){
             return response([
-//               'user'=>Auth::user(),
-            new LoginResource(),
+               'user'=>Auth::user(),
                'accessToken'=>$accessToken
             ]);
 
         }
 
+        return new LoginResource($user, $accessToken);
+
+//        return response()->json([
+//            'user' => new UserResource($user),
+//            'token' => $accessToken
+//        ]);
 
     }
 

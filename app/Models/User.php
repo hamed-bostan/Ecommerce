@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class);
     }
+
+//    public function setPasswordAttribute(mixed $password)
+//    {
+//        return bcrypt($password);
+//    }
 }

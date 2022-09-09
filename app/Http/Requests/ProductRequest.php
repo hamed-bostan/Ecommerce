@@ -25,10 +25,13 @@ class ProductRequest extends FormRequest
     {
         return [
             'product_name' => ['required','string','max:255'],
-            'color' => ['required','string','max:255'],
             'price' => ['required','integer'],
-            'is_available_in_store' => ['required'],
+            'color' => ['required','string','max:255'],
+            'stock' => ['required','integer','max:50'],
             'quantity' => ['required','integer','max:50'],
+            'discount' => ['required','integer','max:35'],
+            'star' => ['required','integer','max:5'],
+            'sales_number' => ['required','integer','max:50'],
             'user_id' => ['required'],
         ];
     }

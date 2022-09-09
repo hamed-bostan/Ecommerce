@@ -24,9 +24,9 @@ private ProductRepository $productRepository;
 
     public function index()
     {
-//        return Product::paginate(10);
-        $product = Product::find(3);
-        return new ProductResource($product);
+        return ProductResource::collection(
+            Product::query()->orderByDesc('id')->paginate(3)
+        );
     }
 
     public function store(ProductRequest $request)

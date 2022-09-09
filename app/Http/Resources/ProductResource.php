@@ -22,8 +22,8 @@ class ProductResource extends JsonResource
             'Stock' => $this->stock == 0 ? 'Out of order' : $this->stock,
             'Quantity' => $this->quantity,
             'Discount' => $this->discount,
-            'Total price after discount' => round((1 - ($this->discount/100 )) * $this -> price,2),
-            'Rating' => $this->star->count() > 0 ? round($this->star->sum('star')/ $this->star->count(),2) : 'No rating yet' ,
+//            'Total price after discount' => round((1 - ($this->discount/100 )) * $this -> price,2),
+            'Rating' => $this->count('star') > 0 ? round($this->sum('star') / $this->count('star'),2) : 'No reviews yes',
             'Sales number' => $this->sales_number,
         ];
     }
