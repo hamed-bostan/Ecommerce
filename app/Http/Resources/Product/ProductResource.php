@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,6 +25,9 @@ class ProductResource extends JsonResource
 //            'Total price after discount' => round((1 - ($this->discount/100 )) * $this -> price,2),
             'Rating' => $this->count('star') > 0 ? round($this->sum('star') / $this->count('star'),2) : 'No reviews yes',
             'Sales number' => $this->sales_number,
+//            'href'=>[
+//                'MoreDetails'=> route('')
+//            ]
         ];
     }
 }

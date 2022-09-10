@@ -24,9 +24,10 @@ Route::middleware('auth:api', 'verified')->group(function (){
 });
 
 Route::middleware('auth:api', 'verified')->group(function (){
-Route::get('/products',[ProductController::class, 'index']);
+Route::get('/products/',[ProductController::class, 'index']);               // original
 Route::post('/products',[ProductController::class, 'store']);
 Route::put('/products/{product}',[ProductController::class, 'update']);
+Route::get('/products/{product}',[ProductController::class,'moredetails'])->name('moredetails.product');
 });
 
 Route::get('/notify', function (){

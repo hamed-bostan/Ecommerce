@@ -31,9 +31,9 @@ class OrdersController extends Controller
 
     public function index()
     {
-//        return Order::paginate(10);
-        $order = Order::find(3);
-        return new OrderResource($order);
+        return Order::paginate(10);
+//        $order = Order::find();
+//        return new OrderResource($order);
     }
 
     public function store(OrderRequest $request)

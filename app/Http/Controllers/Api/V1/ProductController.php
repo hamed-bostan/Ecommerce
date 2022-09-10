@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Policies\ProductPolicy;
-use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use function response;
@@ -24,10 +24,18 @@ private ProductRepository $productRepository;
 
     public function index()
     {
-        return ProductResource::collection(
-            Product::query()->orderByDesc('id')->paginate(3)
-        );
+        return ProductCollection::collection(Product::all());
+//        return ProductResource::collection(Product::all());
     }
+
+
+
+//    public function index()
+//    {
+//        return ProductResource::collection(
+//            Product::query()->orderByDesc('id')->paginate(3)
+//        );
+//    }
 
     public function store(ProductRequest $request)
     {
@@ -49,5 +57,20 @@ private ProductRepository $productRepository;
         return response()->json([
             'message' => 'updating was successful',
         ]);
+    }
+
+//    public function moredetails()                             // works
+//    {
+//
+//        return ProductResource::collection(Product::all());
+//    }
+
+
+    public function moredetails(Product $product)
+    {
+
+//        return ProductResource::collection(Product::query());
+        return ProductResource::collection(
+            Product::query()->orderByDesc('$product')->paginate(3));
     }
 }
