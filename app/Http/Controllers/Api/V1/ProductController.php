@@ -25,9 +25,7 @@ private ProductRepository $productRepository;
     public function index()
     {
         return ProductCollection::collection(Product::all());
-//        return ProductResource::collection(Product::all());
     }
-
 
 
 //    public function index()
@@ -59,18 +57,10 @@ private ProductRepository $productRepository;
         ]);
     }
 
-//    public function moredetails()                             // works
-//    {
-//
-//        return ProductResource::collection(Product::all());
-//    }
-
-
     public function moredetails(Product $product)
     {
 
-//        return ProductResource::collection(Product::query());
-        return ProductResource::collection(
-            Product::query()->orderByDesc('$product')->paginate(3));
+//        return ProductResource::collection(Product::all());
+        return new ProductResource($product);
     }
 }

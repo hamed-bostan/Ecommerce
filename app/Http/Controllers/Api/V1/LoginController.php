@@ -26,21 +26,15 @@ class LoginController extends Controller
         $accessToken = $user->createToken('myToken')->accessToken;
 
             // checking user credentials
-        if ($user){
-            return response([
-               'user'=>Auth::user(),
-               'accessToken'=>$accessToken
-            ]);
+//            return response([
+//               'user'=>Auth::user(),
+//               'accessToken'=>$accessToken
+//            ]);
 
-        }
-
-        return new LoginResource($user, $accessToken);
-
-//        return response()->json([
-//            'user' => new UserResource($user),
-//            'token' => $accessToken
-//        ]);
-
+        return response()->json([
+           'User Information' => new LoginResource($user),
+            'Access Token' => $accessToken,
+        ]);
     }
 
     public function logout()
@@ -51,5 +45,4 @@ class LoginController extends Controller
             'message'=>'You logged out successfully'
         ]);
     }
-
 }

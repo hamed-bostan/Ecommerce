@@ -2,17 +2,19 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\V1\LoginController;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Request;
 
 class LoginResource extends JsonResource
 {
     private string $token;
 
-    public function __construct($resource, string $token)
-    {
-        parent::__construct($resource);
-        $this->token = $token;
-    }
+//    public function __construct($resource, string $token)
+//    {
+//        parent::__construct($resource);
+//        $this->token = $token;
+//    }
 
     /**
      * Transform the resource into an array.
@@ -23,9 +25,11 @@ class LoginResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'first name' => $this->first_name,
-            'token' => $this->token
+            'ID' => $this->id,
+            'First Name' => $this->first_name,
+            'Last Name' => $this->last_name,
+            'Email' =>$this->email,
+//            'token' => $this->token,
         ];
     }
 }
