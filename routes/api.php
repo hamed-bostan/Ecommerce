@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\RegisterController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\OrdersController;
 use App\Http\Controllers\Api\V1\ProductController;
+use \App\Http\Controllers\CartController;
 use App\Models\User;
 use App\Notifications\Order;
 
@@ -22,6 +23,7 @@ Route::middleware('auth:api', 'verified')->group(function (){
     Route::post('/orders',[OrdersController::class, 'store']);
     Route::put('/orders/{order}',[OrdersController::class, 'update']);
     Route::delete('/orders/{order}',[OrdersController::class,'destroy']);
+    Route::get('/orders/ordering',[OrdersController::class,'ordering']);
 });
 
 Route::middleware('auth:api', 'verified')->group(function (){
@@ -36,3 +38,10 @@ Route::get('/notify', function (){
     $user = User::first();
     $user->notify(new Order());
 });
+
+Route::middleware('auth:api', 'verified')->group(function (){
+    Route::get('/carts/',[CartController::class, 'index']);
+    Route::post('/carts',[CartController::class, 'store']);
+});
+
+

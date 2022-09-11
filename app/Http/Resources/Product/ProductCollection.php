@@ -19,8 +19,9 @@ class ProductCollection extends JsonResource
             'Product name' => $this->product_name,
             'Price' => $this->price,
             'href'=>[
-                'link'=>route('moredetails.product',$this->id)
-            ]
+                'More details'=>route('moredetails.product',$this->id),
+                'Add to cart'=>route('moredetails.product',$this->id)
+            ],
         ];
     }
 }

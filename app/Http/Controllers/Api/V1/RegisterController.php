@@ -39,9 +39,10 @@ class RegisterController extends Controller
     {
         /** @var User $user */
         $user = $this->userRepository->create($request->validated() + [
+            'phone_number'=>$request->phone_number,
             'password' => bcrypt($request->password),
-                'activation_token' => Str::random(60),
-                'ip' => $request->ip(),
+            'activation_token' => Str::random(60),
+            'ip' => $request->ip(),
             ]);
 
         // TODO Notification
