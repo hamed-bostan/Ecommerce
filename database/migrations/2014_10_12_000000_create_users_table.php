@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->bigInteger('phone_number')->unique();
             $table->string('activation_token')->nullable();
             $table->tinyInteger('is_admin')->default(0);
             $table->string('ip')->nullable();

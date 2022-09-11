@@ -62,4 +62,13 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function destroy(Order $order)
+    {
+        $order->delete();
+
+        return response()->json([
+           'message' => 'Item deleted successfully'
+        ]);
+    }
+
 }

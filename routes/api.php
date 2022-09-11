@@ -21,13 +21,15 @@ Route::middleware('auth:api', 'verified')->group(function (){
     Route::get('/orders',[OrdersController::class, 'index']);
     Route::post('/orders',[OrdersController::class, 'store']);
     Route::put('/orders/{order}',[OrdersController::class, 'update']);
+    Route::delete('/orders/{order}',[OrdersController::class,'destroy']);
 });
 
 Route::middleware('auth:api', 'verified')->group(function (){
-Route::get('/products/',[ProductController::class, 'index']);               // original
+Route::get('/products/',[ProductController::class, 'index']);
 Route::post('/products',[ProductController::class, 'store']);
 Route::put('/products/{product}',[ProductController::class, 'update']);
 Route::get('/products/{product}',[ProductController::class,'moredetails'])->name('moredetails.product');
+Route::delete('/products/{product}',[ProductController::class,'destroy']);
 });
 
 Route::get('/notify', function (){

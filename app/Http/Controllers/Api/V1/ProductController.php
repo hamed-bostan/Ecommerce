@@ -63,4 +63,13 @@ private ProductRepository $productRepository;
 //        return ProductResource::collection(Product::all());
         return new ProductResource($product);
     }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return response()->json([
+           'message' => 'Item deleted successfully'
+        ]);
+    }
 }

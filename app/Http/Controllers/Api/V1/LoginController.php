@@ -22,6 +22,7 @@ class LoginController extends Controller
             ]);
         }
 
+        // If user exist
         $user = auth()->user();
         $accessToken = $user->createToken('myToken')->accessToken;
 

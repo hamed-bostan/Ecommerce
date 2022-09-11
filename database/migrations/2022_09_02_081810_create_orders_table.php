@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
             $table->float('total_price');
             $table->integer('total_of_orders')->default(0);         // Total of product someone buys.
             $table->timestamps();
