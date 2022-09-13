@@ -30,7 +30,7 @@ Route::middleware('auth:api', 'verified')->group(function (){
 Route::get('/products/',[ProductController::class, 'index']);
 Route::post('/products',[ProductController::class, 'store']);
 Route::put('/products/{product}',[ProductController::class, 'update']);
-Route::get('/products/{product}',[ProductController::class,'moredetails'])->name('moredetails.product');
+Route::get('/products/{product}',[ProductController::class,'moredetails'])->name('more_details.product');
 Route::delete('/products/{product}',[ProductController::class,'destroy']);
 });
 
@@ -39,9 +39,9 @@ Route::get('/notify', function (){
     $user->notify(new Order());
 });
 
-Route::middleware('auth:api', 'verified')->group(function (){
-    Route::get('/carts/',[CartController::class, 'index']);
-    Route::post('/carts',[CartController::class, 'store']);
-});
+//Route::middleware('auth:api', 'verified')->group(function (){
+    Route::get('/carts/',[CartController::class, 'index'])->name('cart.index');
+    Route::post('/carts',[CartController::class, 'store'])->name('cart.store');
+//});
 
 
