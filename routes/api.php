@@ -36,6 +36,7 @@ Route::delete('/products/{product}',[ProductController::class,'destroy']);
 
 Route::get('/notify', function (){
     $user = User::first();
+//    $user = User::first();
     $user->notify(new Order());
 });
 
