@@ -31,6 +31,11 @@ class ProductRequest extends FormRequest
             'quantity' => ['required','integer','max:50'],
             'discount' => ['required','integer','max:35'],
             'star' => ['required','integer','max:5'],
+            'max_count_per_month' => ['integer','max:5'],
+            'has_min' => ['integer','max:5'],
+            'min' => ['integer','max:5'],
+            'has_max' => ['integer','max:5'],
+            'max' => ['integer','max:5'],
             'sales_number' => ['required','integer','max:50'],
             'user_id' => ['required'],
         ];

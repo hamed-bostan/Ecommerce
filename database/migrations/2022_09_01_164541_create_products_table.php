@@ -22,6 +22,11 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('discount');
             $table->integer('star');
+            $table->integer('max_count_per_month')->nullable();
+            $table->boolean('has_min')->default(0);
+            $table->integer('min')->nullable();
+            $table->boolean('has_max')->default(0);
+            $table->integer('max')->nullable();
             $table->tinyInteger('sales_number')->default(0);
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
@@ -38,3 +43,13 @@ return new class extends Migration
         Schema::dropIfExists('products');
     }
 };
+
+
+
+$table->string('name',40 );
+$table->integer('price');
+$table->integer('max_count_per_month');
+$table->boolean('has_min')->default(0);
+$table->integer('min')->nullable();
+$table->boolean('has_max')->default(0);
+$table->integer('max')->nullable();

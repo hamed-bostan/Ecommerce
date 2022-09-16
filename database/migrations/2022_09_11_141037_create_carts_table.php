@@ -18,13 +18,16 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('cart_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('cart_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->unsignedInteger('quantity');
-            $table->timestamps();
-        });
+//        Schema::create('cart_details', function (Blueprint $table) {
+//            $table->id();
+//            $table->foreignId('cart_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+//            $table->foreignId('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+//            $table->unsignedInteger('quantity');
+//            $table->unsignedInteger('min_quantity')->nullable();
+//            $table->unsignedInteger('max_quantity')->nullable();
+//            $table->unsignedInteger('max_quantity_for_user')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**

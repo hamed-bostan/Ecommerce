@@ -34,7 +34,7 @@ class LoginController extends Controller
 
         return response()->json([
            'User Information' => new LoginResource($user),
-            'Access Token' => $accessToken,
+           'Access Token' => $accessToken,
         ]);
     }
 

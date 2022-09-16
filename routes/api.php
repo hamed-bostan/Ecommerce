@@ -18,13 +18,13 @@ Route::post('/register',[RegisterController::class, 'register']);
 Route::post('/login',[LoginController::class, 'login']);
 Route::get('/activation/{token}',[RegisterController::class, 'activation']);
 
-Route::middleware('auth:api', 'verified')->group(function (){
+//Route::middleware('auth:api', 'verified')->group(function (){
     Route::get('/orders',[OrdersController::class, 'index']);
     Route::post('/orders',[OrdersController::class, 'store']);
     Route::put('/orders/{order}',[OrdersController::class, 'update']);
     Route::delete('/orders/{order}',[OrdersController::class,'destroy']);
     Route::get('/orders/ordering',[OrdersController::class,'ordering']);
-});
+//});
 
 Route::middleware('auth:api', 'verified')->group(function (){
 Route::get('/products/',[ProductController::class, 'index']);

@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
-            $table->integer('total_of_orders')->default(0);         // Total of product someone buys.
-            $table->text('address')->nullable();
+            $table->integer('orders_count')->default(0);         // product someone buys per each order.
             $table->timestamps();
         });
     }

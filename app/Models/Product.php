@@ -17,8 +17,13 @@ class Product extends Model
         'quantity',
         'discount',
         'star',
+        'max_count_per_month',
+        'has_min',
+        'min',
+        'has_max',
+        'max',
         'sales_number',
-        'user_id'
+        'user_id',
         ];
 
     public function user(){

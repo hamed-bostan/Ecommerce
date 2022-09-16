@@ -24,10 +24,9 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'total_of_orders' => ['required','integer'],
+            'orders_count' => ['required','integer'],
             'user_id' => ['required'],
             'product_id' => ['required'],
-            'address' => ['string'],
         ];
     }
 
